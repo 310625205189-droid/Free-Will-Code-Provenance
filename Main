@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IET CONNECT - WIREFRAME</title>
+    <style>
+        /* DESIGN SYSTEM: BLACK & WHITE ONLY */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace; /* Basic bad UI font */
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.2;
+        }
+
+        /* BASIC BORDERS FOR EVERYTHING */
+        div, section, nav, header, aside, main, input, button {
+            border: 2px solid #000000;
+        }
+
+        h1, h2, h3 {
+            text-transform: uppercase;
+            padding: 10px;
+            border-bottom: 2px solid #000;
+        }
+
+        p, li {
+            padding: 5px;
+        }
+
+        /* LAYOUT TOOLS */
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+
+        .flex {
+            display: flex;
+            gap: 10px;
+        }
+
+        .sidebar {
+            width: 200px;
+            min-height: 400px;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 10px;
+        }
+
+        /* UI ELEMENTS */
+        .btn {
+            background: #fff;
+            color: #000;
+            padding: 5px 10px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+        }
+
+        /* NAVIGATION */
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            border-bottom: 1px solid #000;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #000;
+            display: block;
+        }
+
+        /* PAGE SECTIONS (FOR VISUALIZATION) */
+        .page-preview {
+            margin-bottom: 50px;
+            padding: 20px;
+            border-style: dashed; /* To show these are different views */
+        }
+
+        .label {
+            background: #000;
+            color: #fff;
+            padding: 2px 5px;
+            font-size: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <center><h1>IET CONNECT WIREFRAME V1.0</h1></center>
+
+        <!-- 1. LOGIN PAGE -->
+        <div class="page-preview">
+            <span class="label">VIEW: LOGIN</span>
+            <div style="max-width: 300px; margin: 40px auto; padding: 20px;">
+                <h2>LOGIN</h2>
+                <div class="input-group">
+                    <label>USERNAME:</label>
+                    <input type="text" placeholder="enter text">
+                </div>
+                <div class="input-group">
+                    <label>PASSWORD:</label>
+                    <input type="password" placeholder="****">
+                </div>
+                <button class="btn">SUBMIT_BUTTON</button>
+            </div>
+        </div>
+
+        <!-- 2. MEMBER DASHBOARD LAYOUT -->
+        <div class="page-preview">
+            <span class="label">VIEW: MEMBER AREA</span>
+            <header>
+                <h2>IET CONNECT | MEMBER_PORTAL</h2>
+            </header>
+            <div class="flex">
+                <aside class="sidebar">
+                    <nav>
+                        <ul>
+                            <li><a href="#">[ ] DASHBOARD</a></li>
+                            <li><a href="#">[ ] EVENTS</a></li>
+                            <li><a href="#">[ ] MY EVENTS</a></li>
+                            <li><a href="#">[ ] PROJECTS</a></li>
+                            <li><a href="#">[ ] PROFILE</a></li>
+                            <li><a href="#">[ ] LOGOUT</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+                <main class="main-content">
+                    <h3>DASHBOARD_CONTENT_HERE</h3>
+                    <div style="height: 100px; margin-top: 10px;">[BOX: RECENT ANNOUNCEMENT]</div>
+                    <div class="flex" style="margin-top: 10px;">
+                        <div style="flex: 1; height: 150px;">[BOX: UPCOMING EVENT]</div>
+                        <div style="flex: 1; height: 150px;">[BOX: PROJECT STATUS]</div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- 3. ADMIN DASHBOARD LAYOUT -->
+        <div class="page-preview">
+            <span class="label">VIEW: ADMIN AREA</span>
+            <header>
+                <h2>IET CONNECT | ADMIN_PANEL</h2>
+            </header>
+            <div class="flex">
+                <aside class="sidebar">
+                    <nav>
+                        <ul>
+                            <li><a href="#">[!] DASHBOARD</a></li>
+                            <li><a href="#">[!] MEMBERS</a></li>
+                            <li><a href="#">[!] EVENTS</a></li>
+                            <li><a href="#">[!] PROJECTS</a></li>
+                            <li><a href="#">[!] LOGOUT</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+                <main class="main-content">
+                    <h3>ADMIN_STATS</h3>
+                    <p>TOTAL MEMBERS: 000</p>
+                    <p>PENDING PROJECTS: 000</p>
+                    <div style="margin-top:10px;">
+                        <h4>MEMBER_LIST_TABLE_WIREFRAME</h4>
+                        <div style="border-top: 1px solid #000;">ID | NAME | STATUS | ACTION</div>
+                        <div style="border-top: 1px solid #000;">01 | USER_A | ACTIVE | [EDIT]</div>
+                        <div style="border-top: 1px solid #000;">02 | USER_B | BANNED | [EDIT]</div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
