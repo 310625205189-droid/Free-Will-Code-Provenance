@@ -61,15 +61,15 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ user, onUpdateProfile 
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-12 animate-fadeIn font-mono">
+    <div className="max-w-4xl mx-auto space-y-6 animate-fadeIn">
       {/* Profile Header Card */}
-      <div className="bg-yellow-100 rounded-none border-8 border-black shadow-2xl overflow-visible rotate-1">
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
         
         {/* Cover Banner */}
-        <div className="h-44 bg-gradient-to-r from-purple-900 via-pink-600 to-yellow-400 relative border-b-8 border-dashed border-black">
-          <div className="absolute top-4 right-4 bg-black border-2 border-yellow-300 px-4 py-2 rotate-6 text-xs font-black text-yellow-300 flex items-center gap-1.5 shadow-xl">
-            <Sparkles className="w-4 h-4 text-pink-400 animate-spin" />
-            <span>MEMBER RECORD VERIFIED !!!</span>
+        <div className="h-44 bg-gradient-to-r from-purple-900 via-pink-600 to-yellow-400 relative">
+          <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md text-[#622569] px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm">
+            <Sparkles className="w-4 h-4 text-purple-600" />
+            <span>MEMBER RECORD VERIFIED</span>
           </div>
         </div>
 
@@ -80,27 +80,27 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ user, onUpdateProfile 
               <img
                 src={user.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80'}
                 alt={user.username}
-                className="w-32 h-32 rounded-none object-cover border-4 border-black shadow-2xl bg-white -rotate-6"
+                className="w-32 h-32 rounded-3xl object-cover border-4 border-white shadow-md bg-white shrink-0"
                 referrerPolicy="no-referrer"
               />
-              <div className="pb-1 bg-white p-4 border-2 border-black rotate-2 shadow-lg">
+              <div className="pb-1">
                 <div className="flex items-center gap-2">
-                  <h1 className="text-3xl font-black text-black font-serif uppercase tracking-tight">{user.username}</h1>
+                  <h1 className="text-3xl font-bold text-slate-900 font-['Poppins'] tracking-tight">{user.username}</h1>
                   {user.role === 'lead' && (
-                    <span className="bg-red-600 text-yellow-300 text-xs font-black px-3 py-1 border-2 border-black flex items-center gap-1 rotate-6">
-                      <ShieldCheck className="w-4 h-4 animate-bounce" /> Chapter Lead
+                    <span className="bg-purple-100 text-[#622569] text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+                      <ShieldCheck className="w-4 h-4" /> Chapter Lead
                     </span>
                   )}
                 </div>
-                <p className="text-xs font-bold text-red-600 underline mt-1">{user.institution}</p>
+                <p className="text-xs font-semibold text-slate-500 mt-1">{user.institution}</p>
               </div>
             </div>
 
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="px-6 py-4 rounded-none bg-red-600 hover:bg-black hover:text-yellow-300 text-white text-sm font-black uppercase tracking-wider transition-all border-4 border-black shadow-xl -rotate-12"
+              className="px-4 py-2.5 rounded-xl bg-[#622569] hover:bg-[#9b51e0] text-white text-xs font-bold shadow-sm transition-all flex items-center gap-1.5"
             >
-              <Edit3 className="w-5 h-5 inline-block mr-2 animate-pulse" />
+              <Edit3 className="w-4 h-4" />
               <span>{isEditing ? 'Cancel Edit' : 'Edit Profile'}</span>
             </button>
           </div>

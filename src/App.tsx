@@ -232,7 +232,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-300 via-pink-300 to-cyan-300 flex flex-col text-black font-mono overflow-x-hidden border-8 border-dashed border-red-600">
+    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 font-sans overflow-x-hidden">
       
       {/* Navbar */}
       <Navbar
@@ -245,7 +245,7 @@ export default function App() {
       />
 
       {/* Main Body */}
-      <div className="flex flex-1 relative -mt-4">
+      <div className="flex flex-1 relative">
         <Sidebar
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -254,7 +254,7 @@ export default function App() {
         />
 
         {/* Content Pane */}
-        <main className="flex-1 p-8 sm:p-12 lg:p-16 overflow-y-auto max-w-7xl mx-auto w-full border-l-8 border-dotted border-black bg-white/40 -rotate-1 shadow-2xl">
+        <main className="flex-1 p-6 sm:p-8 lg:p-10 overflow-y-auto max-w-7xl mx-auto w-full">
           {activeTab === 'auth' && (
             <AuthView onAuthSuccess={handleAuthSuccess} />
           )}
