@@ -28,42 +28,42 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
 
   return (
-    <aside className="w-64 bg-[#622569] text-white flex flex-col justify-between shrink-0 min-h-[calc(100vh-65px)] shadow-xl hidden md:flex">
-      <div className="p-4 space-y-6">
+    <aside className="w-72 bg-gradient-to-b from-purple-900 via-lime-400 to-pink-600 text-black flex flex-col justify-between shrink-0 min-h-[calc(100vh-65px)] shadow-2xl hidden md:flex border-r-8 border-dashed border-red-600 rotate-1 -ml-4 z-20 font-mono">
+      <div className="p-2 space-y-10">
         {/* Chapter Info Badge */}
-        <div className="bg-white/10 rounded-xl p-3.5 border border-white/10 backdrop-blur-sm">
-          <div className="flex items-center gap-2 text-purple-200 text-xs font-medium mb-1">
-            <Award className="w-4 h-4 text-amber-300" />
-            <span>IET Student Chapter</span>
+        <div className="bg-yellow-300 rounded-none p-6 border-8 border-dotted border-black -rotate-6 ml-4 shadow-xl">
+          <div className="flex items-center gap-2 text-black text-xs font-black uppercase mb-2">
+            <Award className="w-6 h-6 text-red-600 animate-bounce" />
+            <span>IET Student Chapter (SLOPPY)</span>
           </div>
-          <p className="text-sm font-semibold text-white truncate">
+          <p className="text-base font-black text-purple-950 uppercase underline">
             {user ? user.institution : 'Connect & Collaborate'}
           </p>
           {user && (
-            <div className="mt-2.5 pt-2 border-t border-white/10 flex items-center justify-between text-xs text-purple-200">
-              <span>Points: <strong className="text-white font-bold">{user.points || 100}</strong></span>
-              <span className="capitalize px-2 py-0.5 rounded bg-white/20 text-white text-[10px] font-medium">{user.role}</span>
+            <div className="mt-4 pt-2 border-t-4 border-black flex items-center justify-between text-xs text-black font-extrabold">
+              <span>Points: <strong className="text-red-600 font-black text-lg">{user.points || 100}</strong></span>
+              <span className="capitalize px-3 py-1 rounded-none bg-black text-yellow-300 text-xs font-black rotate-6">{user.role}</span>
             </div>
           )}
         </div>
 
         {/* Navigation Items */}
-        <nav className="space-y-1.5">
-          <p className="px-3 text-[11px] font-semibold text-purple-200/70 uppercase tracking-wider mb-2">Main Navigation</p>
-          {navItems.map((item) => {
+        <nav className="space-y-4 pr-4">
+          <p className="px-4 text-xs font-black text-black uppercase tracking-widest mb-4 bg-white p-2 border-2 border-black rotate-3 inline-block">*** MAIN NAVIGATION !!! ***</p>
+          {navItems.map((item, idx) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-medium transition-all text-left ${
+                className={`w-full flex items-center gap-4 px-5 py-4 rounded-none text-base font-black uppercase transition-all text-left border-4 border-black ${
                   isActive
-                    ? 'bg-white text-[#622569] font-semibold shadow-md shadow-black/10 translate-x-1'
-                    : 'text-purple-100 hover:bg-white/10 hover:text-white'
+                    ? 'bg-yellow-300 text-black font-black shadow-2xl translate-x-6 -rotate-3'
+                    : 'bg-white/80 text-purple-950 hover:bg-black hover:text-yellow-300 rotate-2'
                 }`}
               >
-                <Icon className={`w-4.5 h-4.5 ${isActive ? 'text-[#622569]' : 'text-purple-200'}`} />
+                <Icon className={`w-6 h-6 ${isActive ? 'text-red-600' : 'text-black'}`} />
                 <span>{item.label}</span>
               </button>
             );
@@ -72,21 +72,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Footer / Logout */}
-      <div className="p-4 border-t border-white/10">
+      <div className="p-6 border-t-8 border-black bg-yellow-400 rotate-2">
         {user ? (
           <button
             onClick={onLogout}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/10 hover:bg-rose-500/20 text-rose-200 hover:text-rose-100 border border-white/10 text-xs font-semibold transition-all"
+            className="w-full flex items-center justify-center gap-3 px-4 py-5 rounded-none bg-red-600 hover:bg-black text-yellow-300 border-4 border-black text-sm font-black uppercase transition-all -rotate-3 shadow-2xl"
           >
-            <LogOut className="w-4 h-4" />
-            <span>Sign Out Account</span>
+            <LogOut className="w-6 h-6" />
+            <span>SIGN OUT ACCOUNT NOW</span>
           </button>
         ) : (
           <button
             onClick={() => setActiveTab('auth')}
-            className="w-full py-2.5 rounded-xl bg-white text-[#622569] font-bold text-xs hover:bg-purple-50 transition-colors shadow"
+            className="w-full py-4 rounded-none bg-black text-yellow-300 font-black text-sm hover:bg-red-600 transition-colors shadow-2xl border-4 border-white rotate-3"
           >
-            Sign In to Portal
+            SIGN IN TO PORTAL NOW!
           </button>
         )}
       </div>

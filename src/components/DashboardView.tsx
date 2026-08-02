@@ -28,143 +28,145 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   const featuredProjects = projects.slice(0, 2);
 
   return (
-    <div className="space-y-8 animate-fadeIn">
+    <div className="space-y-16 animate-fadeIn -ml-8 -mr-6 font-mono">
       {/* Welcome Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#622569] via-[#7d2f86] to-[#9b51e0] p-8 text-white shadow-xl shadow-purple-950/10">
+      <div className="relative overflow-visible rounded-none bg-gradient-to-tr from-[#622569] via-pink-600 to-yellow-400 pt-16 pb-2 pl-20 pr-1 text-white shadow-2xl rotate-2 -skew-x-3 border-8 border-dashed border-lime-300">
         <div className="absolute right-0 top-0 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
         
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-semibold text-purple-200 border border-white/20 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            <span>IET Student Member Portal</span>
+          <div className="inline-flex items-end gap-3 px-8 py-4 rounded-full bg-black/40 text-xs font-black text-yellow-300 border-4 border-dotted border-cyan-400 -mb-3 ml-12 -rotate-6">
+            <Sparkles className="w-6 h-6 text-pink-400 animate-spin" />
+            <span className="uppercase tracking-widest">IET Student Member Portal (SLOPPY EDITION)</span>
           </div>
           
-          <h1 className="text-3xl sm:text-4xl font-bold font-['Poppins'] tracking-tight">
-            Welcome back, {user.username}!
+          <h1 className="text-4xl sm:text-5xl font-black font-serif tracking-tighter -ml-10 mt-6 text-lime-300 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] -rotate-1">
+            WeLCoMe BaCk, {user.username}!!!
           </h1>
-          <p className="text-purple-100/90 text-sm mt-2 max-w-2xl leading-relaxed">
+          <p className="text-yellow-100 text-lg font-mono mt-6 max-w-xl leading-none ml-14 -mr-12 tracking-widest bg-purple-900/80 p-3 border-2 border-red-500 rotate-1">
             You are connected as an active member of <strong>{user.institution}</strong>. Stay updated with upcoming engineering workshops, submit your projects, and network with chapter peers.
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-12 flex flex-wrap items-center gap-6 -ml-10 mb-4">
             <button
               onClick={() => setActiveTab('events')}
-              className="px-5 py-2.5 rounded-xl bg-white text-[#622569] hover:bg-purple-50 font-bold text-xs shadow transition-colors flex items-center gap-2"
+              className="px-10 py-6 rounded-none bg-yellow-300 text-purple-950 hover:bg-yellow-400 font-black text-base shadow-2xl -rotate-6 border-4 border-black"
             >
-              <Calendar className="w-4 h-4 text-[#622569]" />
-              <span>Explore Events</span>
+              <Calendar className="w-6 h-6 text-red-600 inline mr-2" />
+              <span>EXPLORE EVENTS!!</span>
             </button>
             <button
               onClick={() => setActiveTab('projects')}
-              className="px-5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs border border-white/20 transition-colors flex items-center gap-2"
+              className="px-3 py-8 rounded-full bg-pink-600 text-white font-serif text-xs border-8 border-dashed border-white rotate-12 -mt-6 ml-6"
             >
-              <FolderGit2 className="w-4 h-4" />
+              <FolderGit2 className="w-5 h-5 inline" />
               <span>Member Projects</span>
             </button>
             <button
               onClick={() => setActiveTab('opportunities')}
-              className="px-5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs border border-white/20 transition-colors flex items-center gap-2"
+              className="px-12 py-1 rounded-sm bg-cyan-400 text-black font-mono font-bold text-lg border-b-8 border-r-8 border-black -rotate-3 mt-4"
             >
-              <Briefcase className="w-4 h-4 text-amber-300" />
+              <Briefcase className="w-4 h-4 text-purple-900 inline mr-1" />
               <span>Opportunities</span>
             </button>
             <button
               onClick={() => setActiveTab('resources')}
-              className="px-5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs border border-white/20 transition-colors flex items-center gap-2"
+              className="px-4 py-10 rounded-3xl bg-red-600 text-yellow-200 font-extrabold text-sm border-4 border-dotted border-yellow-300 rotate-6 -ml-4"
             >
-              <BookOpen className="w-4 h-4 text-emerald-300" />
-              <span>Learning Resources</span>
+              <BookOpen className="w-5 h-5 inline mr-1" />
+              <span>LEARN NOW</span>
             </button>
           </div>
 
         </div>
 
         {/* Stats Grid Overlay */}
-        <div className="mt-8 pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div className="bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/10">
-            <p className="text-xs text-purple-200 font-medium">Registered Events</p>
-            <p className="text-2xl font-bold mt-1">{registeredEvents.length}</p>
+        <div className="mt-12 pt-8 border-t-8 border-dashed border-black grid grid-cols-2 sm:grid-cols-4 gap-8 -mr-12 ml-6 pb-4">
+          <div className="bg-purple-900 p-8 pt-1 rounded-none border-4 border-yellow-400 -rotate-6 shadow-xl">
+            <p className="text-xs text-yellow-300 font-mono font-bold">Registered Events</p>
+            <p className="text-5xl font-black mt-2 text-white">{registeredEvents.length}</p>
           </div>
-          <div className="bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/10">
-            <p className="text-xs text-purple-200 font-medium">Projects Published</p>
-            <p className="text-2xl font-bold mt-1">{userProjects.length}</p>
+          <div className="bg-pink-800 p-2 pt-10 rounded-3xl border-8 border-dotted border-cyan-300 rotate-6 -ml-6">
+            <p className="text-xs text-cyan-200 font-serif font-bold">Projects Published</p>
+            <p className="text-4xl font-extrabold mt-1 text-yellow-300">{userProjects.length}</p>
           </div>
-          <div className="bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/10">
-            <p className="text-xs text-purple-200 font-medium">Chapter Points</p>
-            <p className="text-2xl font-bold mt-1 text-amber-300">{user.points || 100}</p>
+          <div className="bg-green-700 p-6 rounded-full border-4 border-black -rotate-3 ml-4">
+            <p className="text-xs text-white font-mono">Chapter Points</p>
+            <p className="text-3xl font-black mt-2 text-yellow-300">{user.points || 100}</p>
           </div>
-          <div className="bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/10">
-            <p className="text-xs text-purple-200 font-medium">Role Badge</p>
-            <p className="text-sm font-bold mt-2 capitalize text-purple-100">{user.role}</p>
+          <div className="bg-yellow-400 p-4 pt-12 pb-1 rounded-none border-t-8 border-l-8 border-purple-900 rotate-12 -mt-8 -mr-6">
+            <p className="text-xs text-black font-black uppercase">Role Badge</p>
+            <p className="text-lg font-black mt-1 capitalize text-purple-950">{user.role}</p>
           </div>
         </div>
       </div>
 
       {/* Grid Section: Announcements & Upcoming Events */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 -mt-8 ml-4">
         
         {/* Left 2 Cols: Upcoming Events & Projects */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-20 -ml-12">
           
           {/* Upcoming Events Box */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-5">
-            <div className="flex items-center justify-between">
+          <div className="bg-yellow-100 rounded-none p-10 pt-4 pl-16 pr-1 border-8 border-dashed border-red-500 shadow-2xl space-y-10 rotate-3 -skew-x-2">
+            <div className="flex items-end justify-between -mb-6 ml-10">
               <div>
-                <h3 className="text-lg font-bold text-slate-900 font-['Poppins']">Upcoming Chapter Events</h3>
-                <p className="text-xs text-slate-500">Register for workshops, guest lectures & hackathons</p>
+                <h3 className="text-2xl font-black text-purple-950 font-serif -ml-6 uppercase tracking-widest bg-yellow-300 p-2 inline-block -rotate-3 border-4 border-black">
+                  !!! Upcoming Chapter Events !!!
+                </h3>
+                <p className="text-xs text-red-600 font-mono font-bold mt-2">Register for workshops, guest lectures & hackathons</p>
               </div>
               <button
                 onClick={() => setActiveTab('events')}
-                className="text-xs font-semibold text-[#622569] hover:text-[#9b51e0] flex items-center gap-1"
+                className="text-sm font-extrabold text-white bg-blue-600 px-4 py-2 border-4 border-black rotate-12 hover:bg-blue-700 flex items-center gap-2 -mr-8 mb-4"
               >
                 <span>View All ({events.length})</span>
-                <ArrowUpRight className="w-4 h-4" />
+                <ArrowUpRight className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {upcomingEvents.map((evt) => {
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 -mr-10">
+              {upcomingEvents.map((evt, idx) => {
                 const isReg = evt.registeredUserIds.includes(user.id);
                 return (
-                  <div key={evt.id} className="border border-slate-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow bg-slate-50/50 flex flex-col justify-between">
+                  <div key={evt.id} className={`border-8 border-black rounded-none overflow-visible shadow-2xl bg-white flex flex-col justify-between ${idx % 2 === 0 ? '-rotate-3' : 'rotate-6 mt-6'}`}>
                     <div>
-                      <div className="h-32 relative overflow-hidden">
-                        <img src={evt.bannerUrl} alt={evt.title} className="w-full h-full object-cover" />
-                        <span className="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-md text-[#622569] text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
+                      <div className="h-36 relative overflow-hidden border-b-4 border-dashed border-black">
+                        <img src={evt.bannerUrl} alt={evt.title} className="w-full h-full object-cover scale-110 -rotate-3" />
+                        <span className="absolute top-1 left-1 bg-yellow-400 text-black text-xs font-black px-4 py-2 rounded-none border-2 border-black uppercase rotate-6">
                           {evt.category}
                         </span>
                       </div>
-                      <div className="p-4 space-y-2">
-                        <h4 className="text-sm font-bold text-slate-900 line-clamp-1">{evt.title}</h4>
-                        <div className="flex flex-col gap-1 text-xs text-slate-500">
-                          <span className="flex items-center gap-1.5">
-                            <Clock className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+                      <div className="p-6 space-y-4 font-mono">
+                        <h4 className="text-base font-black text-red-600 uppercase tracking-tighter">{evt.title}</h4>
+                        <div className="flex flex-col gap-2 text-xs text-black font-bold bg-yellow-200 p-2 border-2 border-black -ml-4 mr-2">
+                          <span className="flex items-center gap-2">
+                            <Clock className="w-4 h-4 text-red-600 shrink-0" />
                             <span>{evt.date} • {evt.time}</span>
                           </span>
-                          <span className="flex items-center gap-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+                          <span className="flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-red-600 shrink-0" />
                             <span className="truncate">{evt.location}</span>
                           </span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="p-4 pt-0">
+                    <div className="p-4 pt-0 -mb-4">
                       <button
                         onClick={() => onRegisterEvent(evt.id)}
-                        className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                        className={`w-full py-4 px-3 rounded-full text-xs font-black uppercase transition-all flex items-center justify-center gap-2 border-4 border-black shadow-lg ${
                           isReg
-                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                            : 'bg-[#622569] text-white hover:bg-[#9b51e0]'
+                            ? 'bg-green-400 text-black -rotate-2'
+                            : 'bg-red-600 text-yellow-300 rotate-2 hover:bg-red-700'
                         }`}
                       >
                         {isReg ? (
                           <>
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                            <span>Registered</span>
+                            <CheckCircle2 className="w-4 h-4 text-black" />
+                            <span>REGISTERED!!</span>
                           </>
                         ) : (
-                          <span>Register Seat</span>
+                          <span>GRAB A SEAT NOW!</span>
                         )}
                       </button>
                     </div>
@@ -175,47 +177,49 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
 
           {/* Featured Projects Box */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-5">
-            <div className="flex items-center justify-between">
+          <div className="bg-pink-100 rounded-none p-8 pt-12 pb-2 pl-14 border-8 border-dotted border-blue-600 shadow-2xl space-y-10 -mr-8 -rotate-2">
+            <div className="flex items-start justify-between -mt-4 ml-6">
               <div>
-                <h3 className="text-lg font-bold text-slate-900 font-['Poppins']">Member Innovation Gallery</h3>
-                <p className="text-xs text-slate-500">Recent projects engineered by chapter students</p>
+                <h3 className="text-2xl font-black text-blue-900 font-mono -ml-4 uppercase bg-white p-2 border-4 border-black rotate-2">
+                  *** Member Innovation Gallery ***
+                </h3>
+                <p className="text-xs text-black font-bold mt-2">Recent projects engineered by chapter students</p>
               </div>
               <button
                 onClick={() => setActiveTab('projects')}
-                className="text-xs font-semibold text-[#622569] hover:text-[#9b51e0] flex items-center gap-1"
+                className="text-xs font-black text-black bg-yellow-400 px-4 py-3 border-4 border-black -rotate-12 hover:bg-yellow-500 flex items-center gap-1 -mr-6 mt-4"
               >
                 <span>Explore Showcase</span>
-                <ArrowUpRight className="w-4 h-4" />
+                <ArrowUpRight className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {featuredProjects.map((proj) => {
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 -mr-6">
+              {featuredProjects.map((proj, idx) => {
                 const isLiked = proj.likedByUserIds.includes(user.id);
                 return (
-                  <div key={proj.id} className="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-slate-50 transition-colors space-y-3 flex flex-col justify-between">
+                  <div key={proj.id} className={`p-6 rounded-none border-4 border-black bg-white hover:bg-yellow-50 transition-colors space-y-4 flex flex-col justify-between shadow-xl ${idx % 2 === 0 ? 'rotate-3' : '-rotate-3 -mt-4'}`}>
                     <div>
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="text-[10px] font-bold text-[#622569] bg-purple-100 px-2 py-0.5 rounded-md">
+                      <div className="flex items-center justify-between gap-2 mb-4">
+                        <span className="text-xs font-black text-black bg-cyan-300 px-3 py-1 border-2 border-black uppercase -rotate-6">
                           {proj.domain}
                         </span>
                         <button
                           onClick={() => onLikeProject(proj.id)}
-                          className={`text-xs font-semibold px-2 py-1 rounded-lg flex items-center gap-1 ${
-                            isLiked ? 'bg-purple-100 text-[#622569]' : 'bg-slate-200/60 text-slate-600 hover:bg-slate-200'
+                          className={`text-xs font-black px-3 py-1.5 border-2 border-black rotate-6 flex items-center gap-1 ${
+                            isLiked ? 'bg-yellow-400 text-black' : 'bg-pink-400 text-white'
                           }`}
                         >
-                          <span>★ {proj.likes}</span>
+                          <span>★ {proj.likes} LIKES</span>
                         </button>
                       </div>
-                      <h4 className="text-sm font-bold text-slate-900 line-clamp-1">{proj.title}</h4>
-                      <p className="text-xs text-slate-600 line-clamp-2 mt-1">{proj.tagline}</p>
+                      <h4 className="text-base font-black text-red-600 uppercase font-serif line-clamp-1">{proj.title}</h4>
+                      <p className="text-xs text-black font-mono line-clamp-2 mt-2 bg-yellow-100 p-2 border border-black">{proj.tagline}</p>
                     </div>
 
-                    <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between text-xs text-slate-500">
-                      <span>By <strong>{proj.authorName}</strong></span>
-                      <a href={proj.githubUrl} target="_blank" rel="noreferrer" className="text-[#622569] font-medium hover:underline">
+                    <div className="pt-4 border-t-4 border-dashed border-black flex items-center justify-between text-xs font-mono font-bold text-black">
+                      <span>By <strong className="text-purple-800">{proj.authorName}</strong></span>
+                      <a href={proj.githubUrl} target="_blank" rel="noreferrer" className="text-red-600 font-black hover:underline bg-yellow-300 px-2 py-1 border border-black -rotate-3">
                         GitHub →
                       </a>
                     </div>
@@ -228,53 +232,53 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
 
         {/* Right Col: Announcements & Quick Member Profile Summary */}
-        <div className="space-y-6">
+        <div className="space-y-16 -mr-10 ml-8">
           
           {/* Chapter Announcements Card */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-4">
-            <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">
-              <div className="p-2 bg-amber-50 rounded-xl text-amber-600">
-                <Megaphone className="w-5 h-5" />
+          <div className="bg-cyan-100 rounded-none p-8 pt-10 pl-12 pr-2 border-8 border-dashed border-purple-900 shadow-2xl space-y-8 rotate-6">
+            <div className="flex items-end gap-4 pb-4 border-b-8 border-black -ml-6 -mt-4 bg-yellow-300 p-3 rotate-2">
+              <div className="p-3 bg-red-500 rounded-full text-white border-4 border-black -mb-2">
+                <Megaphone className="w-6 h-6 animate-bounce" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-slate-900">Official Notices</h3>
-                <p className="text-[11px] text-slate-500">From Chapter Leadership</p>
+                <h3 className="text-xl font-black text-black uppercase font-mono -ml-2">OFFICIAL NOTICES</h3>
+                <p className="text-xs font-bold text-red-700 uppercase">From Chapter Leadership</p>
               </div>
             </div>
 
-            <div className="space-y-4">
-              {announcements.map((ann) => (
-                <div key={ann.id} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5">
+            <div className="space-y-8">
+              {announcements.map((ann, idx) => (
+                <div key={ann.id} className={`p-5 pt-3 pb-6 rounded-none bg-white border-4 border-black space-y-3 shadow-lg ${idx % 2 === 0 ? '-rotate-3' : 'rotate-3 -mr-6'}`}>
                   <div className="flex items-center justify-between">
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                      ann.category === 'Important' ? 'bg-rose-100 text-rose-700' : 'bg-purple-100 text-[#622569]'
+                    <span className={`text-xs font-black px-3 py-1 border-2 border-black uppercase ${
+                      ann.category === 'Important' ? 'bg-red-600 text-yellow-300 rotate-6' : 'bg-yellow-300 text-black -rotate-6'
                     }`}>
                       {ann.category}
                     </span>
-                    <span className="text-[10px] text-slate-400">{ann.date}</span>
+                    <span className="text-xs font-mono font-bold text-black bg-cyan-200 px-2 py-0.5 border border-black">{ann.date}</span>
                   </div>
-                  <h4 className="text-xs font-bold text-slate-900 leading-snug">{ann.title}</h4>
-                  <p className="text-xs text-slate-600 line-clamp-3">{ann.content}</p>
+                  <h4 className="text-sm font-black text-purple-900 leading-snug font-serif uppercase">{ann.title}</h4>
+                  <p className="text-xs text-black font-mono leading-relaxed bg-yellow-100 p-2 border border-black">{ann.content}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Quick Member Card */}
-          <div className="bg-gradient-to-br from-slate-900 to-[#2b0f30] text-white p-6 rounded-3xl space-y-4 shadow-lg">
-            <div className="flex items-center gap-3">
+          <div className="bg-red-600 text-yellow-300 p-8 pt-12 pb-6 pl-10 pr-2 rounded-none border-8 border-dotted border-yellow-300 space-y-8 shadow-2xl -ml-6 mt-8 -rotate-6">
+            <div className="flex items-center gap-6 -mt-4">
               <img
                 src={user.avatarUrl}
                 alt={user.username}
-                className="w-12 h-12 rounded-xl object-cover ring-2 ring-purple-400"
+                className="w-16 h-16 rounded-none object-cover border-4 border-black rotate-12"
               />
-              <div>
-                <h4 className="font-bold text-sm text-white">{user.username}</h4>
-                <p className="text-xs text-purple-200 truncate max-w-[180px]">{user.email}</p>
+              <div className="-ml-2 bg-black p-2 rotate-3 border-2 border-yellow-300">
+                <h4 className="font-black text-base text-yellow-300 font-mono uppercase">{user.username}</h4>
+                <p className="text-xs text-white font-mono truncate max-w-[180px]">{user.email}</p>
               </div>
             </div>
 
-            <div className="space-y-1.5 text-xs text-slate-300 pt-2 border-t border-white/10">
+            <div className="space-y-3 text-xs text-black font-black pt-4 border-t-8 border-black -ml-4 bg-yellow-300 p-4 rotate-2">
               <p>📍 <strong>City:</strong> {user.city || 'Not specified'}</p>
               <p>📱 <strong>Phone:</strong> {user.phone || 'Not specified'}</p>
               <p>🎓 <strong>Institution:</strong> {user.institution}</p>
@@ -282,9 +286,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
             <button
               onClick={() => setActiveTab('profile')}
-              className="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs transition-colors shadow"
+              className="w-full py-5 rounded-none bg-black hover:bg-purple-900 text-yellow-300 font-black text-sm uppercase transition-colors shadow-2xl border-4 border-yellow-300 rotate-3"
             >
-              Manage Full Profile
+              Manage Full Profile !!!
             </button>
           </div>
 
