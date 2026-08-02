@@ -99,36 +99,36 @@ export const OpportunitiesView: React.FC<OpportunitiesViewProps> = ({
   };
 
   return (
-    <div className="space-y-6 animate-fadeIn">
+    <div className="space-y-12 animate-fadeIn font-mono">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-12 bg-yellow-200 p-10 rounded-none border-8 border-dashed border-purple-900 shadow-2xl rotate-2 -ml-8 mr-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 font-['Poppins']">Career & Academic Opportunities</h1>
-          <p className="text-xs text-slate-500 mt-1">Explore scholarships, internships, research grants, and mentorship programs for IET CONNECT members</p>
+          <h1 className="text-4xl font-black text-black font-serif uppercase underline">Career & Academic Opportunities !!!</h1>
+          <p className="text-xs font-bold text-red-600 mt-2">Explore scholarships, internships, research grants, and mentorship programs for IET CONNECT members in chaotic style</p>
         </div>
 
         {user && (
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2.5 bg-[#622569] hover:bg-[#9b51e0] text-white font-bold text-xs rounded-xl shadow transition-all flex items-center justify-center gap-2"
+            className="px-8 py-6 bg-red-600 hover:bg-black text-yellow-300 font-black text-base rounded-none border-4 border-black shadow-2xl -rotate-12 transition-all flex items-center justify-center gap-2"
           >
-            <PlusCircle className="w-4 h-4" />
-            <span>Post Opportunity</span>
+            <PlusCircle className="w-6 h-6 animate-spin" />
+            <span>POST NEW OPP NOW!!</span>
           </button>
         )}
       </div>
 
       {/* Timeline & Category Filter Pills */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-1.5 bg-slate-200/60 p-1 rounded-2xl">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 rotate-1 -ml-4">
+        <div className="flex items-center gap-2 bg-purple-900 p-2 border-4 border-black rotate-1">
           {timelines.map((t) => (
             <button
               key={t.id}
               onClick={() => setSelectedTimeline(t.id)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+              className={`px-4 py-2 rounded-none text-xs font-black uppercase transition-all ${
                 selectedTimeline === t.id
-                  ? 'bg-[#622569] text-white shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-yellow-300 text-black border-2 border-black -rotate-3 shadow'
+                  : 'text-white hover:text-yellow-300'
               }`}
             >
               {t.label}
@@ -136,15 +136,15 @@ export const OpportunitiesView: React.FC<OpportunitiesViewProps> = ({
           ))}
         </div>
 
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none -rotate-1 mr-4">
           {types.map((t) => (
             <button
               key={t}
               onClick={() => setSelectedType(t)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-4 py-2 rounded-none text-xs font-black uppercase whitespace-nowrap border-4 border-black transition-all ${
                 selectedType === t
-                  ? 'bg-purple-100 text-[#622569] border border-purple-300'
-                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/80'
+                  ? 'bg-pink-500 text-white rotate-2'
+                  : 'bg-white text-black hover:bg-yellow-300 -rotate-2'
               }`}
             >
               {t}
@@ -154,85 +154,92 @@ export const OpportunitiesView: React.FC<OpportunitiesViewProps> = ({
       </div>
 
       {/* Opportunities Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredOpps.map((opp) => {
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {filteredOpps.map((opp, idx) => {
           const oppTime = opp.timeline || (opp.status === 'Closed' ? 'past' : opp.status === 'Upcoming' ? 'future' : 'present');
 
           return (
             <div
               key={opp.id}
-              className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
+              className={`border-8 border-black overflow-visible shadow-2xl flex flex-col justify-between group transition-all duration-300 ${
+                idx % 3 === 0 ? '-rotate-3 bg-pink-100' : idx % 3 === 1 ? 'rotate-2 bg-cyan-100' : '-rotate-1 bg-yellow-100'
+              }`}
+              style={{
+                borderStyle: idx % 3 === 0 ? 'solid' : idx % 3 === 1 ? 'dashed' : 'dotted',
+                borderRadius: idx % 2 === 0 ? '0px' : '40px 10px 50px 5px',
+              }}
             >
               <div>
                 {/* Banner with Logo Overlay */}
-                <div className="h-40 relative overflow-hidden bg-slate-900">
+                <div className="h-44 relative overflow-hidden bg-slate-900 border-b-4 border-dashed border-black">
                   <img
                     src={opp.bannerUrl || 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&auto=format&fit=crop&q=80'}
                     alt={opp.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80"
+                    referrerPolicy="no-referrer"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/30 to-transparent" />
 
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                    <span className="bg-white/90 backdrop-blur-md text-[#622569] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  <div className="absolute top-2 left-2 flex flex-col gap-1.5 items-start">
+                    <span className="bg-yellow-400 border border-black text-black text-[10px] font-black px-3 py-1 rounded-none uppercase tracking-wider rotate-3">
                       {opp.type}
                     </span>
-                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md ${
+                    <span className={`text-[10px] font-black px-2.5 py-1 rounded-none border border-black -rotate-3 ${
                       oppTime === 'present'
-                        ? 'bg-emerald-500 text-slate-950 font-extrabold'
+                        ? 'bg-green-400 text-black'
                         : oppTime === 'past'
-                        ? 'bg-slate-700/90 text-slate-200'
-                        : 'bg-purple-600/90 text-white'
+                        ? 'bg-red-600 text-white'
+                        : 'bg-purple-600 text-white'
                     }`}>
-                      {oppTime === 'present' ? '✨ Open Now' : oppTime === 'past' ? '📁 Closed Archive' : '🌟 Upcoming'}
+                      {oppTime === 'present' ? '✨ OPEN NOW' : oppTime === 'past' ? '📁 CLOSED' : '🌟 UPCOMING'}
                     </span>
                   </div>
 
                   {/* Organization Logo in corner */}
                   {opp.logoUrl && (
-                    <div className="absolute bottom-3 left-4 w-12 h-12 rounded-xl bg-white p-1 shadow-lg border border-slate-100 flex items-center justify-center overflow-hidden">
-                      <img src={opp.logoUrl} alt={opp.companyOrOrg} className="w-full h-full object-cover rounded-lg" />
+                    <div className="absolute bottom-2 left-2 w-14 h-14 bg-white p-1 border-2 border-black rotate-12 flex items-center justify-center overflow-hidden">
+                      <img src={opp.logoUrl} alt={opp.companyOrOrg} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                     </div>
                   )}
 
-                  <div className="absolute bottom-3 right-4 text-right">
-                    <p className="text-[11px] font-bold text-white tracking-wide">{opp.companyOrOrg}</p>
+                  <div className="absolute bottom-2 right-2 text-right bg-black text-yellow-300 p-1 border border-yellow-300 -rotate-3">
+                    <p className="text-[10px] font-black tracking-widest">{opp.companyOrOrg}</p>
                   </div>
                 </div>
 
                 {/* Content Body */}
-                <div className="p-5 space-y-3">
+                <div className="p-6 space-y-4">
                   <h3
                     onClick={() => setActiveOppModal(opp)}
-                    className="font-bold text-slate-900 text-base leading-snug font-['Poppins'] hover:text-[#622569] cursor-pointer line-clamp-2"
+                    className="font-black text-black text-lg font-serif uppercase tracking-tight hover:text-red-600 cursor-pointer line-clamp-2 underline"
                   >
                     {opp.title}
                   </h3>
 
-                  <div className="space-y-1.5 text-xs text-slate-600">
+                  <div className="space-y-1.5 text-xs text-black font-bold bg-white p-3 border-2 border-dotted border-black -rotate-1">
                     <div className="flex items-center gap-2">
-                      <MapPin className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+                      <MapPin className="w-4 h-4 text-purple-950 shrink-0" />
                       <span>{opp.location}</span>
                     </div>
                     {opp.stipendOrSalary && (
-                      <div className="flex items-center gap-2">
-                        <DollarSign className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                        <span className="font-semibold text-slate-800">{opp.stipendOrSalary}</span>
+                      <div className="flex items-center gap-2 text-red-600">
+                        <DollarSign className="w-4 h-4 shrink-0" />
+                        <span className="font-black">{opp.stipendOrSalary}</span>
                       </div>
                     )}
-                    <div className="flex items-center gap-2 text-slate-500">
-                      <Calendar className="w-3.5 h-3.5 text-purple-600 shrink-0" />
-                      <span>Deadline: <strong>{opp.deadline}</strong></span>
+                    <div className="flex items-center gap-2 text-purple-950">
+                      <Calendar className="w-4 h-4 shrink-0" />
+                      <span>Deadline: <strong className="underline">{opp.deadline}</strong></span>
                     </div>
                   </div>
 
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed pt-1">
+                  <p className="text-xs text-black font-mono leading-relaxed line-clamp-2">
                     {opp.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-1 pt-2">
+                  <div className="flex flex-wrap gap-1.5 pt-2">
                     {opp.tags.map((tag) => (
-                      <span key={tag} className="text-[10px] font-semibold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md">
+                      <span key={tag} className="text-[10px] font-black bg-black text-white px-2 py-1 rotate-2">
                         #{tag}
                       </span>
                     ))}
@@ -241,12 +248,12 @@ export const OpportunitiesView: React.FC<OpportunitiesViewProps> = ({
               </div>
 
               {/* Footer CTA */}
-              <div className="p-5 pt-0 border-t border-slate-100/80 flex items-center justify-between gap-3 mt-4">
+              <div className="p-6 pt-0 border-t-4 border-black border-dashed flex items-center justify-between gap-3 mt-4 bg-yellow-300 p-4 -mx-4 -mb-4 rotate-1 border-double">
                 <button
                   onClick={() => setActiveOppModal(opp)}
-                  className="py-2 px-3.5 rounded-xl text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-all"
+                  className="py-3 px-4 rounded-none text-xs font-black bg-white hover:bg-black hover:text-white border-2 border-black -rotate-3 shadow-lg"
                 >
-                  View Details
+                  VIEW DETAILS!!
                 </button>
 
                 {oppTime === 'present' ? (
@@ -254,14 +261,14 @@ export const OpportunitiesView: React.FC<OpportunitiesViewProps> = ({
                     href={opp.applyUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="py-2 px-4 rounded-xl text-xs font-bold bg-[#622569] hover:bg-[#9b51e0] text-white shadow-sm transition-all flex items-center gap-1.5"
+                    className="py-3 px-5 rounded-none text-xs font-black bg-red-600 hover:bg-black text-white hover:text-yellow-300 border-2 border-black rotate-6 shadow-lg flex items-center gap-1.5"
                   >
-                    <span>Apply Now</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>APPLY NOW!</span>
+                    <ExternalLink className="w-4 h-4" />
                   </a>
                 ) : (
-                  <span className="text-xs font-semibold text-slate-400 italic">
-                    {oppTime === 'past' ? 'Applications Closed' : 'Opens Soon'}
+                  <span className="text-xs font-black text-black bg-white px-2 py-1 rotate-12 border-2 border-black">
+                    {oppTime === 'past' ? 'CLOSED 📁' : 'SOON 🌟'}
                   </span>
                 )}
               </div>

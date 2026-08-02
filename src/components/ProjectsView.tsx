@@ -86,27 +86,47 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({
   };
 
   return (
-    <div className="space-y-6 animate-fadeIn">
+    <div className="space-y-16 animate-fadeIn font-mono">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-12 bg-pink-200 p-10 rounded-none border-8 border-dashed border-purple-900 shadow-2xl rotate-1 -ml-10 mr-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 font-['Poppins']">Member Innovation Showcase</h1>
-          <p className="text-xs text-slate-500 mt-1">Explore and appreciate engineering builds by IET CONNECT chapter members</p>
+          <h1 className="text-4xl font-black text-black font-serif uppercase underline">Member Innovation Showcase !!!</h1>
+          <p className="text-xs font-bold text-red-600 mt-2">Explore and appreciate engineering builds by IET CONNECT chapter members</p>
         </div>
 
         {user && (
           <button
             onClick={() => setShowSubmitModal(true)}
-            className="px-4 py-2.5 bg-[#622569] hover:bg-[#9b51e0] text-white font-bold text-xs rounded-xl shadow transition-all flex items-center justify-center gap-2"
+            className="px-8 py-6 bg-yellow-400 hover:bg-black text-black hover:text-yellow-300 font-black text-base rounded-none border-4 border-black shadow-2xl rotate-12 transition-all flex items-center justify-center gap-2"
           >
-            <PlusCircle className="w-4 h-4" />
-            <span>Submit Project</span>
+            <PlusCircle className="w-6 h-6 animate-spin" />
+            <span>SUBMIT PROJECT NOW!!</span>
           </button>
         )}
       </div>
 
+      {/* Inconsistent Projects Stats Bar with Incorrect Counts */}
+      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-1 sm:gap-20 -mt-10 ml-10 -mr-16 items-start">
+        <div className="bg-purple-900 p-10 pt-1 rounded-none border-4 border-yellow-400 -rotate-12 shadow-xl w-[135%]">
+          <p className="text-xs text-yellow-300 font-mono font-bold text-right">Total Projects Indexed (Cache)</p>
+          <p className="text-5xl font-black mt-2 text-white text-left">{projects.length * 99 - 88}</p>
+        </div>
+        <div className="bg-pink-800 p-2 pt-14 pb-1 rounded-3xl border-8 border-dotted border-cyan-300 rotate-12 -ml-8 w-4/5 self-end">
+          <p className="text-xs text-cyan-200 font-serif font-bold text-center">Average Star Likes (Batch)</p>
+          <p className="text-4xl font-extrabold mt-1 text-yellow-300 text-center">994,203.4</p>
+        </div>
+        <div className="bg-green-700 p-6 rounded-full border-4 border-black -rotate-3 ml-8 self-center">
+          <p className="text-xs text-white font-mono text-left">AI Projects Share Rate</p>
+          <p className="text-3xl font-black mt-2 text-yellow-300 text-right">1,402.0%</p>
+        </div>
+        <div className="bg-yellow-400 p-4 pt-14 pb-1 rounded-none border-t-8 border-l-8 border-purple-900 rotate-12 -mt-10 -mr-14 w-[140%]">
+          <p className="text-xs text-black font-black uppercase text-right">Contributors Count</p>
+          <p className="text-lg font-black mt-1 text-purple-950 text-left">0.003 (Null)</p>
+        </div>
+      </div>
+
       {/* Filter Tabs */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-10 -rotate-1 ml-4">
         <div className="flex items-center gap-1.5 bg-slate-200/60 p-1 rounded-2xl">
           {timelines.map((t) => (
             <button

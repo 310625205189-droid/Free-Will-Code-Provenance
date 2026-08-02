@@ -8,50 +8,61 @@ interface AnnouncementsViewProps {
 
 export const AnnouncementsView: React.FC<AnnouncementsViewProps> = ({ announcements }) => {
   return (
-    <div className="max-w-4xl mx-auto space-y-6 animate-fadeIn">
+    <div className="max-w-5xl mx-auto space-y-16 animate-fadeIn font-mono">
       {/* Header */}
-      <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
-        <h1 className="text-2xl font-bold text-slate-900 font-['Poppins']">Chapter Notices & Announcements</h1>
-        <p className="text-xs text-slate-500 mt-1">Official circulars, competition alerts, and chapter management news</p>
+      <div className="bg-cyan-200 p-10 rounded-none border-8 border-dashed border-purple-900 shadow-2xl rotate-2 -ml-6 mr-4">
+        <h1 className="text-4xl font-black text-black font-serif uppercase underline tracking-widest flex items-center gap-4">
+          <Megaphone className="w-10 h-10 animate-bounce text-red-600" />
+          <span>!!! Chapter Notices & Announcements !!!</span>
+        </h1>
+        <p className="text-sm font-bold text-red-600 mt-2 bg-yellow-100 p-2 border border-black rotate-1 inline-block">
+          OFFICIAL CIRCULARS, COMPETITION ALERTS, AND CHAPTER MANAGEMENT NEWS FOR THE SLOPPY!
+        </p>
       </div>
 
-      <div className="space-y-4">
-        {announcements.map((ann) => (
+      <div className="space-y-12">
+        {announcements.map((ann, idx) => (
           <div
             key={ann.id}
-            className={`bg-white rounded-3xl p-6 border shadow-sm transition-all ${
-              ann.pinned ? 'border-[#9b51e0] ring-1 ring-[#9b51e0]/20' : 'border-slate-200/80'
-            }`}
+            className={`p-10 border-8 shadow-2xl transition-all relative overflow-visible ${
+              ann.pinned 
+                ? 'border-red-600 bg-yellow-100 rotate-3 -skew-y-1' 
+                : 'border-black bg-pink-100 -rotate-3 skew-x-1'
+            } ${idx % 3 === 0 ? 'bg-cyan-100' : idx % 3 === 1 ? 'bg-yellow-200' : 'bg-lime-200'}`}
+            style={{
+              borderStyle: idx % 3 === 0 ? 'dashed' : idx % 3 === 1 ? 'dotted' : 'double',
+              borderRadius: idx % 2 === 0 ? '0px' : '40px 10px 50px 5px',
+            }}
           >
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b-4 border-black pb-4 -mt-4 bg-white p-4 rotate-1 border-dotted">
               <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-md ${
-                    ann.category === 'Important' ? 'bg-rose-100 text-rose-700' : 'bg-purple-100 text-[#622569]'
+                <div className="flex items-center gap-3">
+                  <span className={`text-xs font-black px-4 py-2 border-2 border-black uppercase ${
+                    ann.category === 'Important' ? 'bg-red-600 text-yellow-200 rotate-6' : 'bg-yellow-300 text-black -rotate-6'
                   }`}>
                     {ann.category}
                   </span>
                   {ann.pinned && (
-                    <span className="text-[10px] font-bold bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-md flex items-center gap-1">
-                      <Pin className="w-3 h-3 text-amber-600" /> Pinned
+                    <span className="text-xs font-black bg-purple-900 text-yellow-300 px-4 py-2 border-2 border-black flex items-center gap-2 -rotate-2">
+                      <Pin className="w-4 h-4 text-pink-400 animate-pulse" /> PINNED !!!
                     </span>
                   )}
                 </div>
 
-                <h2 className="text-lg font-bold text-slate-900 font-['Poppins']">{ann.title}</h2>
+                <h2 className="text-2xl font-black text-black font-serif uppercase tracking-tight -ml-2">{ann.title}</h2>
               </div>
 
-              <span className="text-xs text-slate-400 font-medium whitespace-nowrap">{ann.date}</span>
+              <span className="text-xs font-black text-white bg-black px-4 py-2 rotate-12">{ann.date}</span>
             </div>
 
-            <p className="text-xs text-slate-700 leading-relaxed mt-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+            <p className="text-sm text-black leading-relaxed mt-6 bg-white p-6 border-4 border-dashed border-red-500 rotate-1">
               {ann.content}
             </p>
 
-            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-              <span className="flex items-center gap-1.5">
-                <UserCheck className="w-3.5 h-3.5 text-purple-600" />
-                <span>Issued by: <strong>{ann.authorName}</strong> ({ann.authorRole})</span>
+            <div className="mt-8 pt-4 border-t-4 border-black border-dotted flex items-center justify-between text-xs text-black font-extrabold bg-yellow-300 p-4 -mb-4 -mr-4 -rotate-2 border-double">
+              <span className="flex items-center gap-2">
+                <UserCheck className="w-5 h-5 text-red-600" />
+                <span>ISSUED BY: <strong className="underline text-purple-900">{ann.authorName}</strong> ({ann.authorRole})</span>
               </span>
             </div>
           </div>

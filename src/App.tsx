@@ -40,21 +40,18 @@ export default function App() {
   // Fetch initial data
   const loadAppData = async () => {
     try {
-      const [evtRes, projRes, annRes, memRes, oppRes, resRes] = await Promise.all([
-        api.getEvents(),
-        api.getProjects(),
-        api.getAnnouncements(),
-        api.getMembers(),
-        api.getOpportunities(),
-        api.getResources()
+      const [summary, memRes] = await Promise.all([
+        api.getDashboardSummary(),
+        api.getMembers()
       ]);
 
-      if (evtRes.success) setEvents(evtRes.events);
-      if (projRes.success) setProjects(projRes.projects);
-      if (annRes.success) setAnnouncements(annRes.announcements);
+      setEvents(summary.events);
+      setProjects(summary.projects);
+      setAnnouncements(summary.announcements);
+      setOpportunities(summary.opportunities);
+      setResources(summary.resources);
+
       if (memRes.success) setMembers(memRes.members);
-      if (oppRes.success) setOpportunities(oppRes.opportunities);
-      if (resRes.success) setResources(resRes.resources);
     } catch (err) {
       console.error('Failed to load portal data from backend', err);
     }

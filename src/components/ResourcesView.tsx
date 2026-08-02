@@ -87,36 +87,36 @@ export const ResourcesView: React.FC<ResourcesViewProps> = ({
   };
 
   return (
-    <div className="space-y-6 animate-fadeIn">
+    <div className="space-y-12 animate-fadeIn font-mono">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-12 bg-lime-200 p-10 rounded-none border-8 border-dashed border-purple-900 shadow-2xl rotate-2 -ml-8 mr-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 font-['Poppins']">Engineering & Academic Resources</h1>
-          <p className="text-xs text-slate-500 mt-1">Access curated IET standards, e-books, templates, research papers, and video lectures</p>
+          <h1 className="text-4xl font-black text-black font-serif uppercase underline">Engineering & Academic Resources !!!</h1>
+          <p className="text-xs font-bold text-red-600 mt-2">Access curated IET standards, e-books, templates, research papers, and video lectures in messy style</p>
         </div>
 
         {user && (
           <button
             onClick={() => setShowShareModal(true)}
-            className="px-4 py-2.5 bg-[#622569] hover:bg-[#9b51e0] text-white font-bold text-xs rounded-xl shadow transition-all flex items-center justify-center gap-2"
+            className="px-8 py-6 bg-red-600 hover:bg-black text-yellow-300 font-black text-base rounded-none border-4 border-black shadow-2xl -rotate-12 transition-all flex items-center justify-center gap-2"
           >
-            <PlusCircle className="w-4 h-4" />
-            <span>Share Resource</span>
+            <PlusCircle className="w-6 h-6 animate-spin" />
+            <span>SHARE RESOURCE NOW!!</span>
           </button>
         )}
       </div>
 
       {/* Timeline & Category Filter Pills */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-1.5 bg-slate-200/60 p-1 rounded-2xl">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 rotate-1 -ml-4">
+        <div className="flex items-center gap-2 bg-purple-900 p-2 border-4 border-black rotate-1">
           {timelines.map((t) => (
             <button
               key={t.id}
               onClick={() => setSelectedTimeline(t.id)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+              className={`px-4 py-2 rounded-none text-xs font-black uppercase transition-all ${
                 selectedTimeline === t.id
-                  ? 'bg-[#622569] text-white shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-yellow-300 text-black border-2 border-black -rotate-3 shadow'
+                  : 'text-white hover:text-yellow-300'
               }`}
             >
               {t.label}
@@ -124,15 +124,15 @@ export const ResourcesView: React.FC<ResourcesViewProps> = ({
           ))}
         </div>
 
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none -rotate-1 mr-4">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-4 py-2 rounded-none text-xs font-black uppercase whitespace-nowrap border-4 border-black transition-all ${
                 selectedCategory === cat
-                  ? 'bg-purple-100 text-[#622569] border border-purple-300'
-                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/80'
+                  ? 'bg-pink-500 text-white rotate-2'
+                  : 'bg-white text-black hover:bg-yellow-300 -rotate-2'
               }`}
             >
               {cat}
@@ -142,65 +142,72 @@ export const ResourcesView: React.FC<ResourcesViewProps> = ({
       </div>
 
       {/* Resources Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredResources.map((res) => {
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {filteredResources.map((res, idx) => {
           const resTime = res.timeline || 'present';
 
           return (
             <div
               key={res.id}
-              className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
+              className={`border-8 border-black overflow-visible shadow-2xl flex flex-col justify-between group transition-all duration-300 ${
+                idx % 3 === 0 ? '-rotate-3 bg-pink-100' : idx % 3 === 1 ? 'rotate-2 bg-cyan-100' : '-rotate-1 bg-yellow-100'
+              }`}
+              style={{
+                borderStyle: idx % 3 === 0 ? 'solid' : idx % 3 === 1 ? 'dashed' : 'dotted',
+                borderRadius: idx % 2 === 0 ? '0px' : '40px 10px 50px 5px',
+              }}
             >
               <div>
                 {/* Image / Thumbnail Banner */}
-                <div className="h-44 relative overflow-hidden bg-slate-900">
+                <div className="h-44 relative overflow-hidden bg-slate-900 border-b-4 border-dashed border-black">
                   <img
                     src={res.thumbnailUrl || 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=600&auto=format&fit=crop&q=80'}
                     alt={res.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    referrerPolicy="no-referrer"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
 
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                    <span className="bg-white/90 backdrop-blur-md text-[#622569] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  <div className="absolute top-2 left-2 flex flex-col gap-1.5 items-start">
+                    <span className="bg-yellow-400 border border-black text-black text-[10px] font-black px-3 py-1 rounded-none uppercase tracking-wider rotate-3">
                       {res.type}
                     </span>
-                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md ${
+                    <span className={`text-[10px] font-black px-2.5 py-1 rounded-none border border-black -rotate-3 ${
                       resTime === 'present'
-                        ? 'bg-emerald-500 text-slate-950 font-extrabold'
+                        ? 'bg-green-400 text-black'
                         : resTime === 'past'
-                        ? 'bg-slate-700/90 text-slate-200'
-                        : 'bg-purple-600/90 text-white'
+                        ? 'bg-red-600 text-white'
+                        : 'bg-purple-600 text-white'
                     }`}>
-                      {resTime === 'present' ? '📚 Current' : resTime === 'past' ? '🏛️ Classic Archive' : '🔮 Upcoming'}
+                      {resTime === 'present' ? '📚 CURRENT' : resTime === 'past' ? '🏛️ ARCHIVE' : '🔮 UPCOMING'}
                     </span>
                   </div>
 
-                  <span className="absolute top-3 right-3 bg-black/50 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full">
+                  <span className="absolute top-2 right-2 bg-black border border-white text-white text-[10px] font-black px-2.5 py-1">
                     {res.level}
                   </span>
 
-                  <div className="absolute bottom-3 left-3 right-3 text-white">
-                    <p className="text-[11px] text-purple-200 font-medium">By {res.authorOrProvider} {res.publishedYear ? `• (${res.publishedYear})` : ''}</p>
+                  <div className="absolute bottom-2 left-2 right-2 text-white bg-black/70 p-1 border border-black">
+                    <p className="text-[10px] text-purple-200 font-bold">By {res.authorOrProvider} {res.publishedYear ? `• (${res.publishedYear})` : ''}</p>
                   </div>
                 </div>
 
                 {/* Content Body */}
-                <div className="p-5 space-y-3">
+                <div className="p-6 space-y-4">
                   <h3
                     onClick={() => setActiveResModal(res)}
-                    className="font-bold text-slate-900 text-base leading-snug font-['Poppins'] hover:text-[#622569] cursor-pointer line-clamp-2"
+                    className="font-black text-black text-lg font-serif uppercase tracking-tight hover:text-red-600 cursor-pointer line-clamp-2 underline"
                   >
                     {res.title}
                   </h3>
 
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-black font-mono leading-relaxed line-clamp-2">
                     {res.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-1 pt-2">
+                  <div className="flex flex-wrap gap-1.5 pt-2">
                     {res.tags.map((t) => (
-                      <span key={t} className="text-[10px] font-semibold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md">
+                      <span key={t} className="text-[10px] font-black bg-black text-white px-2 py-1 rotate-2">
                         #{t}
                       </span>
                     ))}
@@ -209,22 +216,22 @@ export const ResourcesView: React.FC<ResourcesViewProps> = ({
               </div>
 
               {/* Footer CTA */}
-              <div className="p-5 pt-0 border-t border-slate-100/80 flex items-center justify-between gap-3 mt-4">
+              <div className="p-6 pt-0 border-t-4 border-black border-dashed flex items-center justify-between gap-3 mt-4 bg-yellow-300 p-4 -mx-4 -mb-4 rotate-1 border-double">
                 <button
                   onClick={() => setActiveResModal(res)}
-                  className="py-2 px-3.5 rounded-xl text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-all"
+                  className="py-3 px-4 rounded-none text-xs font-black bg-white hover:bg-black hover:text-white border-2 border-black -rotate-3 shadow-lg"
                 >
-                  Summary
+                  SUMMARY!!
                 </button>
 
                 <a
                   href={res.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="py-2 px-4 rounded-xl text-xs font-bold bg-[#622569] hover:bg-[#9b51e0] text-white shadow-sm transition-all flex items-center gap-1.5"
+                  className="py-3 px-5 rounded-none text-xs font-black bg-red-600 hover:bg-black text-white hover:text-yellow-300 border-2 border-black rotate-6 shadow-lg flex items-center gap-1.5"
                 >
-                  <span>{res.type === 'Video Course' ? 'Watch Course' : res.type === 'Template' ? 'Download Kit' : 'Access Resource'}</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>{res.type === 'Video Course' ? 'WATCH COURSE' : res.type === 'Template' ? 'DOWNLOAD KIT' : 'ACCESS NOW!'}</span>
+                  <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
             </div>

@@ -48,6 +48,40 @@ function getAuthHeaders(): HeadersInit {
   return headers;
 }
 
+// In-memory cache & request deduplication for optimized APIs
+const apiCache = new Map<string, { timestamp: number; data: any }>();
+const inFlightRequests = new Map<string, Promise<any>>();
+const CACHE_TTL = 30000; // 30 seconds TTL
+
+async function fetchWithCache<T>(url: string): Promise<T> {
+  const now = Date.now();
+  const cached = apiCache.get(url);
+  if (cached && now - cached.timestamp < CACHE_TTL) {
+    return cached.data;
+  }
+  if (inFlightRequests.has(url)) {
+    return inFlightRequests.get(url);
+  }
+  const promise = fetch(url).then(res => res.json()).then(data => {
+    apiCache.set(url, { timestamp: Date.now(), data });
+    inFlightRequests.delete(url);
+    return data;
+  }).catch(err => {
+    inFlightRequests.delete(url);
+    throw err;
+  });
+  inFlightRequests.set(url, promise);
+  return promise;
+}
+
+export function invalidateApiCache(url?: string): void {
+  if (url) {
+    apiCache.delete(url);
+  } else {
+    apiCache.clear();
+  }
+}
+
 export const api = {
   // Auth
   async register(data: {
@@ -106,17 +140,16 @@ export const api = {
 
   // Directory
   async getMembers(): Promise<{ success: boolean; members: User[] }> {
-    const res = await fetch('/api/members');
-    return res.json();
+    return fetchWithCache('/api/members');
   },
 
   // Events
   async getEvents(): Promise<{ success: boolean; events: Event[] }> {
-    const res = await fetch('/api/events');
-    return res.json();
+    return fetchWithCache('/api/events');
   },
 
   async registerEvent(eventId: string): Promise<{ success: boolean; registered?: boolean; event?: Event; message?: string }> {
+    invalidateApiCache();
     const res = await fetch(`/api/events/${eventId}/register`, {
       method: 'POST',
       headers: getAuthHeaders(),
@@ -125,6 +158,7 @@ export const api = {
   },
 
   async createEvent(eventData: Partial<Event>): Promise<{ success: boolean; event?: Event; message?: string }> {
+    invalidateApiCache();
     const res = await fetch('/api/events', {
       method: 'POST',
       headers: getAuthHeaders(),
@@ -135,11 +169,11 @@ export const api = {
 
   // Projects
   async getProjects(): Promise<{ success: boolean; projects: Project[] }> {
-    const res = await fetch('/api/projects');
-    return res.json();
+    return fetchWithCache('/api/projects');
   },
 
   async submitProject(projectData: Partial<Project>): Promise<{ success: boolean; project?: Project; message?: string }> {
+    invalidateApiCache();
     const res = await fetch('/api/projects', {
       method: 'POST',
       headers: getAuthHeaders(),
@@ -149,6 +183,7 @@ export const api = {
   },
 
   async toggleLikeProject(projectId: string): Promise<{ success: boolean; liked?: boolean; likesCount?: number; project?: Project }> {
+    invalidateApiCache();
     const res = await fetch(`/api/projects/${projectId}/like`, {
       method: 'POST',
       headers: getAuthHeaders(),
@@ -158,17 +193,16 @@ export const api = {
 
   // Announcements
   async getAnnouncements(): Promise<{ success: boolean; announcements: Announcement[] }> {
-    const res = await fetch('/api/announcements');
-    return res.json();
+    return fetchWithCache('/api/announcements');
   },
 
   // Opportunities
   async getOpportunities(): Promise<{ success: boolean; opportunities: Opportunity[] }> {
-    const res = await fetch('/api/opportunities');
-    return res.json();
+    return fetchWithCache('/api/opportunities');
   },
 
   async createOpportunity(oppData: Partial<Opportunity>): Promise<{ success: boolean; opportunity?: Opportunity; message?: string }> {
+    invalidateApiCache();
     const res = await fetch('/api/opportunities', {
       method: 'POST',
       headers: getAuthHeaders(),
@@ -179,17 +213,35 @@ export const api = {
 
   // Resources
   async getResources(): Promise<{ success: boolean; resources: Resource[] }> {
-    const res = await fetch('/api/resources');
-    return res.json();
+    return fetchWithCache('/api/resources');
   },
 
   async createResource(resData: Partial<Resource>): Promise<{ success: boolean; resource?: Resource; message?: string }> {
+    invalidateApiCache();
     const res = await fetch('/api/resources', {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(resData),
     });
     return res.json();
+  },
+
+  // Batch dashboard optimization
+  async getDashboardSummary() {
+    const [events, projects, announcements, opportunities, resources] = await Promise.all([
+      fetchWithCache<{ success: boolean; events: Event[] }>('/api/events'),
+      fetchWithCache<{ success: boolean; projects: Project[] }>('/api/projects'),
+      fetchWithCache<{ success: boolean; announcements: Announcement[] }>('/api/announcements'),
+      fetchWithCache<{ success: boolean; opportunities: Opportunity[] }>('/api/opportunities'),
+      fetchWithCache<{ success: boolean; resources: Resource[] }>('/api/resources'),
+    ]);
+    return {
+      events: events.events || [],
+      projects: projects.projects || [],
+      announcements: announcements.announcements || [],
+      opportunities: opportunities.opportunities || [],
+      resources: resources.resources || [],
+    };
   }
 };
 

@@ -61,45 +61,46 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ user, onUpdateProfile 
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
+    <div className="max-w-4xl mx-auto space-y-12 animate-fadeIn font-mono">
       {/* Profile Header Card */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+      <div className="bg-yellow-100 rounded-none border-8 border-black shadow-2xl overflow-visible rotate-1">
         
         {/* Cover Banner */}
-        <div className="h-44 bg-gradient-to-r from-[#622569] via-[#85348d] to-[#9b51e0] relative">
-          <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold text-white border border-white/20 flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            <span>Member Record Verified</span>
+        <div className="h-44 bg-gradient-to-r from-purple-900 via-pink-600 to-yellow-400 relative border-b-8 border-dashed border-black">
+          <div className="absolute top-4 right-4 bg-black border-2 border-yellow-300 px-4 py-2 rotate-6 text-xs font-black text-yellow-300 flex items-center gap-1.5 shadow-xl">
+            <Sparkles className="w-4 h-4 text-pink-400 animate-spin" />
+            <span>MEMBER RECORD VERIFIED !!!</span>
           </div>
         </div>
 
         {/* Info Grid */}
-        <div className="p-6 sm:p-8 relative pt-0">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 -mt-16 mb-6">
-            <div className="flex items-end gap-4">
+        <div className="p-8 relative pt-0">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 -mt-20 mb-6">
+            <div className="flex items-end gap-6">
               <img
                 src={user.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80'}
                 alt={user.username}
-                className="w-28 h-28 rounded-2xl object-cover ring-4 ring-white shadow-lg bg-slate-100"
+                className="w-32 h-32 rounded-none object-cover border-4 border-black shadow-2xl bg-white -rotate-6"
+                referrerPolicy="no-referrer"
               />
-              <div className="pb-1">
+              <div className="pb-1 bg-white p-4 border-2 border-black rotate-2 shadow-lg">
                 <div className="flex items-center gap-2">
-                  <h1 className="text-2xl font-bold text-slate-900 font-['Poppins']">{user.username}</h1>
+                  <h1 className="text-3xl font-black text-black font-serif uppercase tracking-tight">{user.username}</h1>
                   {user.role === 'lead' && (
-                    <span className="bg-purple-100 text-[#622569] text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1">
-                      <ShieldCheck className="w-3 h-3" /> Chapter Lead
+                    <span className="bg-red-600 text-yellow-300 text-xs font-black px-3 py-1 border-2 border-black flex items-center gap-1 rotate-6">
+                      <ShieldCheck className="w-4 h-4 animate-bounce" /> Chapter Lead
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-slate-500 font-medium">{user.institution}</p>
+                <p className="text-xs font-bold text-red-600 underline mt-1">{user.institution}</p>
               </div>
             </div>
 
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="px-4 py-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-[#622569] text-xs font-bold transition-colors flex items-center gap-2 border border-purple-200"
+              className="px-6 py-4 rounded-none bg-red-600 hover:bg-black hover:text-yellow-300 text-white text-sm font-black uppercase tracking-wider transition-all border-4 border-black shadow-xl -rotate-12"
             >
-              <Edit3 className="w-4 h-4" />
+              <Edit3 className="w-5 h-5 inline-block mr-2 animate-pulse" />
               <span>{isEditing ? 'Cancel Edit' : 'Edit Profile'}</span>
             </button>
           </div>
