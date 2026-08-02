@@ -1,0 +1,365 @@
+import React, { useState } from 'react';
+import { User } from '../types';
+import { Mail, Phone, MapPin, Building, Calendar, Edit3, Github, Linkedin, ShieldCheck, Sparkles, Check, X, Tag } from 'lucide-react';
+
+interface ProfileViewProps {
+  user: User;
+  onUpdateProfile: (updatedData: Partial<User>) => Promise<boolean>;
+}
+
+export const ProfileView: React.FC<ProfileViewProps> = ({ user, onUpdateProfile }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [newSkill, setNewSkill] = useState('');
+  const [newInterest, setNewInterest] = useState('');
+
+  const [formData, setFormData] = useState({
+    username: user.username,
+    phone: user.phone || '',
+    gender: user.gender || 'Male',
+    dob: user.dob || '',
+    city: user.city || '',
+    institution: user.institution || '',
+    bio: user.bio || '',
+    githubUrl: user.githubUrl || '',
+    linkedinUrl: user.linkedinUrl || '',
+    avatarUrl: user.avatarUrl || '',
+    skills: user.skills || [],
+    interests: user.interests || [],
+  });
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    const success = await onUpdateProfile(formData);
+    setSaving(false);
+    if (success) {
+      setIsEditing(false);
+    }
+  };
+
+  const addSkill = () => {
+    if (newSkill.trim() && !formData.skills.includes(newSkill.trim())) {
+      setFormData({ ...formData, skills: [...formData.skills, newSkill.trim()] });
+      setNewSkill('');
+    }
+  };
+
+  const removeSkill = (skillToRemove: string) => {
+    setFormData({ ...formData, skills: formData.skills.filter(s => s !== skillToRemove) });
+  };
+
+  const addInterest = () => {
+    if (newInterest.trim() && !formData.interests.includes(newInterest.trim())) {
+      setFormData({ ...formData, interests: [...formData.interests, newInterest.trim()] });
+      setNewInterest('');
+    }
+  };
+
+  const removeInterest = (interestToRemove: string) => {
+    setFormData({ ...formData, interests: formData.interests.filter(i => i !== interestToRemove) });
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
+      {/* Profile Header Card */}
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+        
+        {/* Cover Banner */}
+        <div className="h-44 bg-gradient-to-r from-[#622569] via-[#85348d] to-[#9b51e0] relative">
+          <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold text-white border border-white/20 flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            <span>Member Record Verified</span>
+          </div>
+        </div>
+
+        {/* Info Grid */}
+        <div className="p-6 sm:p-8 relative pt-0">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 -mt-16 mb-6">
+            <div className="flex items-end gap-4">
+              <img
+                src={user.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80'}
+                alt={user.username}
+                className="w-28 h-28 rounded-2xl object-cover ring-4 ring-white shadow-lg bg-slate-100"
+              />
+              <div className="pb-1">
+                <div className="flex items-center gap-2">
+                  <h1 className="text-2xl font-bold text-slate-900 font-['Poppins']">{user.username}</h1>
+                  {user.role === 'lead' && (
+                    <span className="bg-purple-100 text-[#622569] text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1">
+                      <ShieldCheck className="w-3 h-3" /> Chapter Lead
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-slate-500 font-medium">{user.institution}</p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setIsEditing(!isEditing)}
+              className="px-4 py-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-[#622569] text-xs font-bold transition-colors flex items-center gap-2 border border-purple-200"
+            >
+              <Edit3 className="w-4 h-4" />
+              <span>{isEditing ? 'Cancel Edit' : 'Edit Profile'}</span>
+            </button>
+          </div>
+
+          {/* EDIT FORM or READ-ONLY VIEW */}
+          {isEditing ? (
+            <form onSubmit={handleSave} className="space-y-6 pt-4 border-t border-slate-100">
+              <h3 className="text-sm font-bold text-slate-900 font-['Poppins']">Update Profile Information</h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Full Name</label>
+                  <input
+                    type="text"
+                    value={formData.username}
+                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:border-[#9b51e0] focus:bg-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Phone Number</label>
+                  <input
+                    type="text"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:border-[#9b51e0] focus:bg-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Gender</label>
+                  <select
+                    value={formData.gender}
+                    onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:border-[#9b51e0] focus:bg-white"
+                  >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Date of Birth</label>
+                  <input
+                    type="date"
+                    value={formData.dob}
+                    onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:border-[#9b51e0] focus:bg-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">City</label>
+                  <input
+                    type="text"
+                    value={formData.city}
+                    onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:border-[#9b51e0] focus:bg-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Institution</label>
+                  <input
+                    type="text"
+                    value={formData.institution}
+                    onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:border-[#9b51e0] focus:bg-white"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Bio / Statement</label>
+                  <textarea
+                    rows={3}
+                    value={formData.bio}
+                    onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:border-[#9b51e0] focus:bg-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">GitHub URL</label>
+                  <input
+                    type="url"
+                    value={formData.githubUrl}
+                    onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:border-[#9b51e0] focus:bg-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">LinkedIn URL</label>
+                  <input
+                    type="url"
+                    value={formData.linkedinUrl}
+                    onChange={(e) => setFormData({ ...formData, linkedinUrl: e.target.value })}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:border-[#9b51e0] focus:bg-white"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">Avatar Image Link</label>
+                  <input
+                    type="url"
+                    value={formData.avatarUrl}
+                    onChange={(e) => setFormData({ ...formData, avatarUrl: e.target.value })}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:border-[#9b51e0] focus:bg-white"
+                  />
+                </div>
+              </div>
+
+              {/* Skills Tag Management */}
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Skills</label>
+                <div className="flex gap-2 mb-2">
+                  <input
+                    type="text"
+                    value={newSkill}
+                    onChange={(e) => setNewSkill(e.target.value)}
+                    placeholder="e.g. Python, React, IoT"
+                    className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={addSkill}
+                    className="px-3 py-1.5 bg-[#622569] text-white text-xs font-bold rounded-xl"
+                  >
+                    Add
+                  </button>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {formData.skills.map((s) => (
+                    <span key={s} className="px-2.5 py-1 bg-purple-100 text-[#622569] text-xs font-medium rounded-lg flex items-center gap-1">
+                      {s}
+                      <X className="w-3 h-3 cursor-pointer" onClick={() => removeSkill(s)} />
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-4 flex justify-end gap-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsEditing(false)}
+                  className="px-4 py-2 rounded-xl text-slate-600 text-xs font-bold bg-slate-100 hover:bg-slate-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={saving}
+                  className="px-5 py-2 rounded-xl text-white text-xs font-bold bg-[#622569] hover:bg-[#9b51e0] shadow flex items-center gap-2"
+                >
+                  <Check className="w-4 h-4" />
+                  <span>{saving ? 'Saving...' : 'Save Changes'}</span>
+                </button>
+              </div>
+            </form>
+          ) : (
+            /* READ ONLY VIEW */
+            <div className="space-y-6 pt-4 border-t border-slate-100">
+              {/* Bio Statement */}
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">About Member</h4>
+                <p className="text-sm text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                  {user.bio || 'No bio provided yet.'}
+                </p>
+              </div>
+
+              {/* Data Grid matching original prompt structure */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-100 space-y-1">
+                  <div className="flex items-center gap-2 text-xs text-slate-400 font-medium">
+                    <Mail className="w-3.5 h-3.5 text-purple-600" />
+                    <span>Email Address</span>
+                  </div>
+                  <p className="text-sm font-semibold text-slate-800">{user.email}</p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-100 space-y-1">
+                  <div className="flex items-center gap-2 text-xs text-slate-400 font-medium">
+                    <Phone className="w-3.5 h-3.5 text-purple-600" />
+                    <span>Phone Number</span>
+                  </div>
+                  <p className="text-sm font-semibold text-slate-800">{user.phone || 'N/A'}</p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-100 space-y-1">
+                  <div className="flex items-center gap-2 text-xs text-slate-400 font-medium">
+                    <Calendar className="w-3.5 h-3.5 text-purple-600" />
+                    <span>Date of Birth & Gender</span>
+                  </div>
+                  <p className="text-sm font-semibold text-slate-800">{user.dob || 'N/A'} • {user.gender || 'N/A'}</p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-100 space-y-1">
+                  <div className="flex items-center gap-2 text-xs text-slate-400 font-medium">
+                    <MapPin className="w-3.5 h-3.5 text-purple-600" />
+                    <span>City</span>
+                  </div>
+                  <p className="text-sm font-semibold text-slate-800">{user.city || 'N/A'}</p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-100 space-y-1 md:col-span-2">
+                  <div className="flex items-center gap-2 text-xs text-slate-400 font-medium">
+                    <Building className="w-3.5 h-3.5 text-purple-600" />
+                    <span>Institution</span>
+                  </div>
+                  <p className="text-sm font-semibold text-slate-800">{user.institution}</p>
+                </div>
+              </div>
+
+              {/* Skills & Interests */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Technical Skills</h4>
+                <div className="flex flex-wrap gap-2">
+                  {user.skills && user.skills.length > 0 ? (
+                    user.skills.map((s) => (
+                      <span key={s} className="px-3 py-1 bg-purple-100 text-[#622569] text-xs font-semibold rounded-lg">
+                        {s}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-xs text-slate-400 italic">No skills listed yet</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Social Connections */}
+              <div className="pt-4 border-t border-slate-100 flex gap-4">
+                {user.githubUrl && (
+                  <a
+                    href={user.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-[#622569]"
+                  >
+                    <Github className="w-4 h-4" />
+                    <span>GitHub Profile</span>
+                  </a>
+                )}
+                {user.linkedinUrl && (
+                  <a
+                    href={user.linkedinUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-[#622569]"
+                  >
+                    <Linkedin className="w-4 h-4 text-blue-600" />
+                    <span>LinkedIn Profile</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
