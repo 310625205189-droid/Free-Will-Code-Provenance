@@ -396,6 +396,7 @@ export default function App() {
             <MembersView
               members={members}
               searchQuery={searchQuery}
+              user={currentUser}
             />
           )}
 
