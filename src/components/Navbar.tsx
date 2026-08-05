@@ -1,6 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User } from '../types';
-import { ShieldCheck, LogOut, Search, Bell, Sparkles, User as UserIcon, Menu, X, AlertCircle } from 'lucide-react';
+import { ShieldCheck, LogOut, Search, Bell, Sparkles, User as UserIcon, Menu, X, AlertCircle } from 'lucide-react';import { useState, useEffect } from 'react';
+
+export function DarkModeToggle() {
+  // Check local storage or default to light mode
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return localStorage.getItem('theme') === 'dark';
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDarkMode) {
+      root.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
+
+  return (
+    <button 
+      onClick={() => setIsDarkMode(!isDarkMode)}
+      style={{ padding: '8px', borderRadius: '4px', cursor: 'pointer' }}
+    >
+      {isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+    </button>
+  );
+}
 
 interface NavbarProps {
   user: User | null;
@@ -81,6 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Sparkles className="w-5 h-5 text-purple-200" />
           </div>
           <div>
+          <DarkModeToggle/>
             <div className="flex items-center gap-2">
               <span className="font-bold text-lg text-[#622569] tracking-tight font-['Poppins']">IET CONNECT</span>
               <span className="px-2 py-0.5 text-[9px] font-bold bg-[#622569]/10 text-[#622569] rounded-md tracking-wider">PORTAL</span>
